@@ -16,32 +16,32 @@ for(let i = 0; i < 20; i++) {
 const columns1 = [
     {
         title: "仓库编号",
-        dataIndex: "warehouseCode",
+        dataIndex: "仓库编号",
         key: "warehouseCode"
     },
     {
         title: "仓库名称",
-        dataIndex: "warehouseName",
+        dataIndex: "仓库名称",
         key: "warehouseName"
     },
     {
         title: "备件编号",
-        dataIndex: "stockCode",
+        dataIndex: "备件编号",
         key: "stockCode"
     },
     {
-        title: "备件名称",
-        dataIndex: "stockName",
+        title: "名称",
+        dataIndex: "名称",
         key: "stockName"
     },
     {
         title: "差异数量",
-        dataIndex: "diffNum",
+        dataIndex: "数量",
         key: "diffNum"
     },
     {
         title: "差异金额",
-        dataIndex: "diffAmount",
+        dataIndex: "金额",
         key: "diffAmount"
     }
 ];

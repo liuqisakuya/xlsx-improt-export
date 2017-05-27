@@ -51,6 +51,7 @@ class App extends Component {
     }
 
     importFile(obj) {
+        const {dataSource, columns1} = dataJson;
         let file = document.getElementById("test").files[0];
         let reader = new FileReader();
         reader.readAsArrayBuffer(file);
@@ -61,7 +62,7 @@ class App extends Component {
             let res = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]]);
             const columns = [];
             for(let p in res[0]) {
-                columns.push({
+                columns1.push({
                     title: p,
                     dataIndex: p,
                     key: p,

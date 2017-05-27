@@ -12,6 +12,8 @@ class App extends Component {
         super(props);
         this.state = {
             columns: [],
+            columns2: dataJson.columns1,
+            data: [],
             res: {},
         }
         if (window.FileReader) {
@@ -60,6 +62,8 @@ class App extends Component {
 
     //TODO 需要判断是否能调用readAsArrayBuffer等方法
     importFile(e) {
+        const {dataSource, columns1} = dataJson;
+        const columns2 = columns1;
         const {fileName} = this.state;
         //获取上传文件
         let file = document.getElementById("test").files[0];
@@ -95,17 +99,50 @@ class App extends Component {
             console.log(workbook, workbook.Sheets[workbook.SheetNames[1]]);
             //序列化excel的数据
             let res = {};
+            let colAndRow = {};
             workbook.SheetNames.forEach(item => {
-                if(XLSX.utils.sheet_to_json(workbook.Sheets[item], {defval: ''}).length > 0)
+                if(XLSX.utils.sheet_to_json(workbook.Sheets[item], {defval: ''}).length > 0){
+                    colAndRow = workbook.Sheets[item]['!merges'];
                     res[item] = XLSX.utils.sheet_to_json(workbook.Sheets[item], {defval: ''});
+                }
             })
 
-            console.log(res, Object.keys(res));
+            console.log(res, colAndRow);
+            const tabsArray = Object.keys(res);
+            const columns = [];
+            columns2.forEach((item, index) => {
+                item.render = (t, r, i) => {
+                    const obj = {
+                        children: t,
+                        props: {},
+                    };
+                    colAndRow.forEach(p => {
+                        if(p.s.c === item) {
+                            if(p.s.r === i) {
+                                console.log(222);
+                            }
+                        }
+                    })
+                }
+            })
 
+                    // columns.push({
+                    //     render: (t, r, i) => {
+                    //         const obj = {
+                    //             children: t,
+                    //             props: {},
+                    //         };
+                    //         colAndRow[item].forEach(k => {
+                    //             // if(k)
+                    //         })
+                    //     }
+                    // })
             this.setState({
                 fileName: file.name,
                 res,
-                workbook
+                workbook,
+                columns2: columns2,
+                data: res[tabsArray[0]]
             })
         }
     }
@@ -175,6 +212,7 @@ class App extends Component {
 
     render() {
         const {dataSource, columns1} = dataJson;
+        const {data, columns2, columns} = this.state;
         const {res}  = this.state;
         const tabsArray = Object.keys(res);
         let tabs = null;
@@ -192,30 +230,30 @@ class App extends Component {
                                         key: p,
                                     })
                                 };
-                                exporttable = <Table
-                                    dataSource={res[item]}
-                                    columns={columns}
-                                    rowKey={r => {
-                                        let rowkeyStr = ''
-                                        for(let k in columns) {
-                                            rowkeyStr += r[columns[k].key]
-                                        }
-                                        return rowkeyStr
-                                    }}
-                                    size="small"
-                                    bordered
-                                />
+                                // exporttable = <Table
+                                //     dataSource={res[item]}
+                                //     columns={columns1}
+                                //     rowKey={r => {
+                                //         let rowkeyStr = ''
+                                //         for(let k in columns) {
+                                //             rowkeyStr += r[columns[k].key]
+                                //         }
+                                //         return rowkeyStr
+                                //     }}
+                                //     size="small"
+                                //     bordered
+                                // />
                                 return (
                                     <TabPane tab={item} key={item}>
                                         <Table
                                             dataSource={res[item]}
-                                            columns={columns}
+                                            columns={columns2}
                                             rowKey={r => {
                                                 let rowkeyStr = ''
                                                 for(let k in columns) {
                                                     rowkeyStr += r[columns[k].key]
                                                 }
-                                                return rowkeyStr
+                                                return Math.random()
                                             }}
                                             size="small"
                                             bordered
@@ -241,15 +279,21 @@ class App extends Component {
                             {tabsArray.length > 0 && tabs}
                         </Col>
                         <Col span={12}>
-                            <Button type="primary" onClick={this.downloadExcel}>导出</Button>
-                            {/* <Table
-                                dataSource={dataSource}
+                            {/* <Button type="primary" onClick={this.downloadExcel}>导出</Button>
+                            <Table
+                                dataSource={data}
                                 columns={columns1}
-                                rowKey="index"
+                                rowKey={r => {
+                                    let rowkeyStr = ''
+                                    for(let k in columns) {
+                                        rowkeyStr += r[columns[k].key]
+                                    }
+                                    return rowkeyStr
+                                }}
                                 size="small"
                                 bordered
                             /> */}
-                            {exporttable}
+                            {/* {exporttable} */}
                         </Col>
                     </Row>
                 </div>
