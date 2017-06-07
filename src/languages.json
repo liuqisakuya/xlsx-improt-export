@@ -1,0 +1,16 @@
+{
+  "zh-CN": {
+    "name": {
+      "zh-CN": "简体中文",
+      "en-US": "Simplified Chinese"
+    },
+    "flag": "cn"
+  },
+  "en-US": {
+    "name": {
+      "zh-CN": "美式英语",
+      "en-US": "U.S. English"
+    },
+    "flag": "us"
+  }
+}
