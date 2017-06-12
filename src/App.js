@@ -67,9 +67,10 @@ class App extends Component {
 
     //TODO 需要判断是否能调用readAsArrayBuffer等方法
     importFile(e) {
+        console.dir(e.target);
         const {fileName} = this.state;
         //获取上传文件
-        let file = document.getElementById("test").files[0];
+        let file = e.target.files[0];
         //log console.log(document.getElementById("test"));
         if(!file) {
             document.getElementById("test").name = fileName;
@@ -242,7 +243,7 @@ class App extends Component {
                         '!cols': [
                             {
                                 MDW: 6,
-                                width: 32
+                                width: 18
                             },
                             {
                                 MDW: 6,
