@@ -6,7 +6,7 @@ const TabPane = Tabs.TabPane;
 var Chance = require('chance');
 var chance = new Chance();
 let dataSource = []
-for(let i = 0; i < 20000; i++) {
+for(let i = 0; i < 200000; i++) {
     const num = chance.natural({min: 10000000000, max: 99999999999});
     const str = num % 2 === 0 ? 'B' : 'C';
     const a = chance.natural({min: 10, max: 99});
