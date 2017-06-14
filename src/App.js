@@ -346,7 +346,7 @@ class App extends Component {
                 </div>
                 <div className="xlsx">
                     <Row gutter={20}>
-                        <Col span={20}>
+                        <Col span={12}>
                             <input type="file" id="test" onChange={this.importFile}/>
                             {/* {tabsArray.length > 0 && tabs} */}
                             <Table
@@ -358,7 +358,7 @@ class App extends Component {
                                 // pagination={false}
                             />
                         </Col>
-                        <Col span={4}>
+                        <Col span={12}>
                             <Row>
                                 {/* <Col>
                                     <FormItem>
@@ -375,15 +375,15 @@ class App extends Component {
                                     <Button type="primary" onClick={this.downloadExcel}>导出</Button>
                                 </Col>
                             </Row>
-                            {/* <Table
+                            <Table
                                 dataSource={dataSource}
                                 columns={columns1}
                                 rowKey="index"
                                 size="small"
                                 bordered
-                                pagination={false}
+                                // pagination={false}
                             />
-                            {exporttable} */}
+                            {/* {exporttable} */}
                         </Col>
                     </Row>
                 </div>
